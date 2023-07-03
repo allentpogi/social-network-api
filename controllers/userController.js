@@ -4,8 +4,8 @@ module.exports = {
   // Get all users
   async getUsers(req, res) {
     try {
-      const courses = await Course.find();
-      res.json(courses);
+      const users = await User.find();
+      res.json(users);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -13,15 +13,15 @@ module.exports = {
   // Get a user
   async getSingleUser(req, res) {
     try {
-      const course = await Course.findOne({ _id: req.params.courseId }).select(
+      const user = await User.findOne({ _id: req.params.userId }).select(
         "-__v"
       );
 
-      if (!course) {
-        return res.status(404).json({ message: "No course with that ID" });
+      if (!user) {
+        return res.status(404).json({ message: "No user with that ID" });
       }
 
-      res.json(course);
+      res.json(user);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -29,8 +29,8 @@ module.exports = {
   // Create a user
   async createUser(req, res) {
     try {
-      const course = await Course.create(req.body);
-      res.json(course);
+      const user = await User.create(req.body);
+      res.json(user);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -39,34 +39,35 @@ module.exports = {
   // Delete a user
   async deleteUser(req, res) {
     try {
-      const course = await Course.findOneAndDelete({
-        _id: req.params.courseId,
+      const user = await User.findOneAndDelete({
+        _id: req.params.userId,
       });
 
-      if (!course) {
-        return res.status(404).json({ message: "No course with that ID" });
+      if (!user) {
+        return res.status(404).json({ message: "No user with that ID" });
       }
 
-      await Student.deleteMany({ _id: { $in: course.students } });
-      res.json({ message: "Course and students deleted!" });
+      await Thought.deleteMany({ _id: { $in: user.thoughts } });
+      res.json({ message: "User and thoughts deleted!" });
     } catch (err) {
       res.status(500).json(err);
+      console.log(err);
     }
   },
   // Update a user
   async updateUser(req, res) {
     try {
-      const course = await Course.findOneAndUpdate(
-        { _id: req.params.courseId },
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
         { $set: req.body },
         { runValidators: true, new: true }
       );
 
-      if (!course) {
-        return res.status(404).json({ message: "No course with this id!" });
+      if (!user) {
+        return res.status(404).json({ message: "No user with this id!" });
       }
 
-      res.json(course);
+      res.json(user);
     } catch (err) {
       res.status(500).json(err);
     }
