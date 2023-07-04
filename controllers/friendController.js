@@ -20,6 +20,7 @@ module.exports = {
       console.log(err);
     }
   },
+  // remove a friend
   async removeFriend(req, res) {
     try {
       const user = await User.findOneAndUpdate(
