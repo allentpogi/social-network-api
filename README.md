@@ -37,7 +37,7 @@ Below is a screenshot of the demo using insomnia.
 
 ## Video recording
 
-Video recording explaining the application can be viewed here: TBC
+Video recording explaining the application can be viewed here: https://drive.google.com/file/d/1rhjyLjSFSIoVCv6iwULzs9k92NezCErl/view
 
 
 ## Credits
